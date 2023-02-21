@@ -2,12 +2,14 @@ package com.example.newsapi
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapi.adapter.NewsAdapter
 import com.example.newsapi.databinding.ActivityMainBinding
+import com.example.newsapi.extra.Events
 import com.example.newsapi.model.Article
 import com.example.newsapi.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -37,8 +39,21 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        mainViewModel.data.observe(this, Observer { list ->
-            setAdapter(list)
+        mainViewModel.data.observe(this, Observer {
+            when (it) {
+                is Events.Loading -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+                is Events.Success -> {
+                    it.let {
+                        it.data?.let { it1 -> setAdapter(it1) }
+                    }
+                    binding.progressBar.visibility = View.GONE
+                }
+                is Events.Error -> {
+                    binding.progressBar.visibility = View.GONE
+                }
+            }
         })
     }
 
