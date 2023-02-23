@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //mainViewModel.getData("bitcoin", "9850bc5968804dac9ba65c377b4220a2")
+        mainViewModel.getData("bitcoin", "9850bc5968804dac9ba65c377b4220a2")
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -55,6 +55,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
+
     }
 
     private fun setAdapter(list: List<Article>) = binding.recyclerView.apply {
