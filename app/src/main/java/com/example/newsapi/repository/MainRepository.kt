@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class MainRepository @Inject constructor(val apiInterface: ApiInterface) {
 
-    fun getNewsFromServer(q : String, apiKey : String) : Flow<ApiResponse> = flow {
-        emit(apiInterface.getNewsList(q, apiKey))
+    fun getNewsFromServer(q : String, sortBy: String, apiKey : String) : Flow<ApiResponse> = flow {
+        emit(apiInterface.getNewsList(q, sortBy, apiKey))
     }
 }

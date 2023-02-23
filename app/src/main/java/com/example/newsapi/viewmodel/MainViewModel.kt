@@ -17,20 +17,10 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(val mainRepository: MainRepository) : ViewModel() {
     val data : MutableLiveData<Events<List<Article>>> = MutableLiveData()
 
-//    fun getData(q : String, apiKey : String) {
-//        viewModelScope.launch {
-//            mainRepository.getNewsFromServer(q, apiKey).catch {
-//                Log.e("API", "get: ${it.localizedMessage}")
-//            }.collect { list ->
-//                data.value = list.articles
-//            }
-//        }
-//    }
-
-    fun getData(q : String, apiKey : String) {
+    fun getData(q : String, sortBy: String, apiKey : String) {
         viewModelScope.launch {
             data.postValue(Events.Loading())
-            mainRepository.getNewsFromServer(q, apiKey).catch {
+            mainRepository.getNewsFromServer(q, sortBy, apiKey).catch {
                 Log.e("API", "get: ${it.localizedMessage}")
                 data.postValue(Events.Error(msg = it.localizedMessage))
             }.collect { list ->

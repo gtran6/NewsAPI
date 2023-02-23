@@ -10,13 +10,54 @@
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:hint="search something">
+        android:hint="search something"
+        tools:ignore="MissingConstraints">
 
     </androidx.appcompat.widget.SearchView>
 
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:gravity="end"
+        app:layout_constraintTop_toBottomOf="@+id/searchView">
+
+        <RadioButton
+            android:id="@+id/popular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Popular"
+            android:textSize="18sp"
+            android:layout_marginEnd="10dp">
+
+        </RadioButton>
+
+        <RadioButton
+            android:id="@+id/recent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Recent"
+            android:textSize="18sp"
+            android:layout_marginEnd="10dp">
+
+        </RadioButton>
+
+        <RadioButton
+            android:id="@+id/relevant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Relevant"
+            android:textSize="18sp"
+            android:layout_marginEnd="10dp">
+
+        </RadioButton>
+
+    </RadioGroup>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="100dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

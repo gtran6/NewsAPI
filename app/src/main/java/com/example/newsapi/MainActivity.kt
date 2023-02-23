@@ -19,18 +19,32 @@ class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     val mainViewModel : MainViewModel by viewModels()
     var search : String = ""
+    var sortBy : String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        mainViewModel.getData("bitcoin", "9850bc5968804dac9ba65c377b4220a2")
+        mainViewModel.getData("bitcoin", sortBy, "9850bc5968804dac9ba65c377b4220a2")
+
+        binding.radioGroup.setOnCheckedChangeListener { group, checkedId ->
+            when (checkedId) {
+//                    binding.popular -> sortBy = "popularity"
+//                    binding.recent -> sortBy = "publishedAt"
+//                    binding.relevant -> sortBy = "relevancy"
+                R.id.popular -> sortBy = "popularity"
+                R.id.recent -> sortBy = "publishedAt"
+                R.id.relevant -> sortBy = "relevancy"
+            }
+
+            mainViewModel.getData(search, sortBy, "9850bc5968804dac9ba65c377b4220a2")
+        }
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 search = query!!
-                mainViewModel.getData(search, "9850bc5968804dac9ba65c377b4220a2")
+                mainViewModel.getData(search, sortBy, "9850bc5968804dac9ba65c377b4220a2")
                 return false
             }
 
